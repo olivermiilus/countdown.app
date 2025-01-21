@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Countdown Timer</title>
     <script>
+        let interval;
+
         function startCountdown(targetDate) {
             function updateCountdown() {
                 const now = new Date().getTime();
@@ -24,7 +26,7 @@
                 document.getElementById("countdown").innerHTML = `Time remaining: ${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
             }
 
-            const interval = setInterval(updateCountdown, 1000);
+            interval = setInterval(updateCountdown, 1000);
             updateCountdown();
         }
 
@@ -37,6 +39,11 @@
             const minute = document.getElementById("minute").value;
             const targetDate = new Date(year, month, day, hour, minute).getTime();
             startCountdown(targetDate);
+        }
+
+        function stopCountdown() {
+            clearInterval(interval);
+            document.getElementById("countdown").innerHTML = "Countdown stopped!";
         }
     </script>
 </head>
@@ -80,6 +87,8 @@
 
         <button type="submit">Start Countdown</button>
     </form>
+
+    <button onclick="stopCountdown()">Stop Countdown</button>
 
     <div id="countdown"></div>
 </body>
