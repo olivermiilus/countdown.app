@@ -24,10 +24,14 @@ def countdown(target_date):
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
-        target_date_str = request.form['target_date']
-        target_date = datetime.strptime(target_date_str, "%Y-%m-%d %H:%M:%S")
+        year = int(request.form['year'])
+        month = int(request.form['month'])
+        day = int(request.form['day'])
+        hour = int(request.form['hour'])
+        minute = int(request.form['minute'])
+        target_date = datetime(year, month, day, hour, minute)
         threading.Thread(target=countdown, args=(target_date,)).start()
-        return f"Countdown started for {target_date_str}"
+        return f"Countdown started for {target_date}"
     return render_template('index.html')
 
 if __name__ == "__main__":
